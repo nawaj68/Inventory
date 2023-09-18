@@ -1,0 +1,123 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="returnForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header>
+                                <mat-card-subtitle>Return Details</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                  
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Item </mat-label>
+                                            <mat-select formControlName="itemId">
+                                              <mat-form-field class="t-full-width">
+                                                <input matInput placeholder="Search Item" autocomplete="off"
+                                                  (keyup)="onItemFilter($event)" (keydown)="$event.stopPropagation()" />
+                                              </mat-form-field>
+                                              <mat-option *ngFor="let item of filteredItems | slice: 0:10" [value]="item.id">
+                                                <small>
+                                                  {{ item.itemName }}
+                                                </small>
+                                              </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="returnForm.controls['itemId'].hasError('required')">
+                                              Item is <strong>required</strong>
+                                            </mat-error>
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Company </mat-label>
+                                            <mat-select formControlName="companyId">
+                                              <mat-form-field class="t-full-width">
+                                                <input matInput placeholder="Search Company" autocomplete="off"
+                                                  (keyup)="onCompanyFilter($event)" (keydown)="$event.stopPropagation()" />
+                                              </mat-form-field>
+                                              <mat-option *ngFor="let company of filteredCompany | slice: 0:10" [value]="company.id">
+                                                <small>
+                                                  {{ company.companyName }}
+                                                </small>
+                                              </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="returnForm.controls['companyId'].hasError('required')">
+                                              Company is <strong>required</strong>
+                                            </mat-error>
+                                          </mat-form-field>
+                                      </div>
+                                    
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Quantity
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="quantity" placeholder="quantity" />
+                                            <mat-error *ngIf="returnForm.controls['quantity'].hasError('required')">
+                                                 <strong>required</strong>
+                                            </mat-error>
+                    
+                                        </mat-form-field>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                reasonOfReturn
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="reasonOfReturn" placeholder="reason of return" />
+                                            <mat-error *ngIf="returnForm.controls['reasonOfReturn'].hasError('required')">
+                                                 <strong>required</strong>
+                                            </mat-error>
+                    
+                                        </mat-form-field>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width" appearance="outline">
+                                          <mat-label>
+                                            Return Date
+                
+                                            <span class="required">*</span>
+                                          </mat-label>
+                                          <input
+                                            matInput
+                                            [matDatepicker]="returnDatePicker"
+                                            [max]="today"
+                                            formControlName="returnDate"
+                                            placeholder="returnDate"
+                                            name="returnDate"
+                                            (dateChange)="dateChange('change', $event)"
+                                          />
+                                          <mat-datepicker-toggle matSuffix [for]="returnDatePicker"></mat-datepicker-toggle>
+                                          <mat-datepicker #returnDatePicker></mat-datepicker>
+                                          <mat-error *ngIf="returnForm.controls['returnDate'].hasError('required')">
+                                            Return date is <strong>required</strong>
+                                          </mat-error>
+                                        </mat-form-field>
+                                      </div> 
+                                  
+                                    
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="reset()">Reset</button>
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="clearState()">clear</button>
+                        <button mat-stroked-button color="primary" (click)="save()" class="t-mat-raised-button">
+                            <mat-icon>{{ isEdit ? "update" : "add" }}</mat-icon>
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

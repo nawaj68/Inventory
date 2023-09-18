@@ -1,0 +1,166 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Damage <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-5">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="damageForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header class="mb-3">
+                                <mat-card-subtitle>Damage Information</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Quantity
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="quantity"
+                                                placeholder="Enter quantity" />
+                                            <mat-error
+                                                *ngIf="damageForm.controls['quantity'].hasError('required')">
+                                                Quantity Name is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="damageForm.controls['quantity'].hasError('maxlength')">
+                                                Unit Name max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                DamageQuantity
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="damageQuantity"
+                                                placeholder="Enter damageQuantity" />
+                                            <mat-error
+                                                *ngIf="damageForm.controls['damageQuantity'].hasError('required')">
+                                                DamageQuantity Name is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="damageForm.controls['damageQuantity'].hasError('maxlength')">
+                                                Unit Name max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                DamageReason
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="damageReason"
+                                                placeholder="Enter quantity" />
+                                            <mat-error
+                                                *ngIf="damageForm.controls['damageReason'].hasError('required')">
+                                                DamageReason is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="damageForm.controls['damageReason'].hasError('maxlength')">
+                                                Unit Name max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                          <mat-label>
+                                            Damage Date
+                                            <span class="required">*</span>
+                                          </mat-label>
+                                          
+                                          <input
+                                            matInput
+                                            [matDatepicker]="birthDatePicker"
+                                            [max]="today"
+                                            formControlName="damageDate"
+                                            placeholder="Enter Birth Date"
+                                            name="damageDate"
+                                            (dateChange)="dateChange('change', $event)"
+                                          />
+                                          <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                                          <mat-datepicker #birthDatePicker></mat-datepicker>
+                                          <mat-error *ngIf="damageForm.controls['damageDate'].hasError('required')">
+                                            DamageDate is <strong>required</strong>
+                                          </mat-error>
+                                        </mat-form-field>
+                                      </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                          <mat-label> Ttem </mat-label>
+                                          <mat-select formControlName="itemId">
+                                            <mat-form-field class="example-full-width">
+                                              <input matInput placeholder="Search States" autocomplete="off"
+                                                (keyup)="onItemFilter($event)" (keydown)="$event.stopPropagation()" />
+                                            </mat-form-field>
+                                            <mat-option *ngFor="let Item of filtereditems | slice: 0:10" [value]="Item.id">
+                                              <small>
+                                                {{ Item.itemName }}
+                                              </small>
+                                            </mat-option>
+                                          </mat-select>
+                                        </mat-form-field>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                          <mat-label> Company </mat-label>
+                                          <mat-select formControlName="companyId">
+                                            <mat-form-field class="example-full-width">
+                                              <input matInput placeholder="Search company" autocomplete="off"
+                                                (keyup)="onCompanyFilter($event)" (keydown)="$event.stopPropagation()" />
+                                            </mat-form-field>
+                                            <mat-option *ngFor="let Company of filteredcompanys | slice: 0:10" [value]="Company.id">
+                                              <small>
+                                                {{ Company.companyName }}
+                                              </small>
+                                            </mat-option>
+                                          </mat-select>
+                                        </mat-form-field>
+                                      </div>
+                                    <!-- <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Category Code </mat-label>
+                                            <input matInput formControlName="categoryCode"
+                                                placeholder="Enter Your Acount Name" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Description </mat-label>
+                                            <textarea matInput formControlName="description" rows="3"
+                                                placeholder="Write about category........."></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <mat-checkbox  formControlName="cancel"  color="primary">Cancel</mat-checkbox>
+                                    </div> -->
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="reset()">Reset</button>
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="clearDamage()">clear</button>
+                        <button mat-stroked-button color="primary" (click)="save()" class="t-mat-raised-button">
+                            <mat-icon>{{ isEdit ? "update" : "add" }}</mat-icon>
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+

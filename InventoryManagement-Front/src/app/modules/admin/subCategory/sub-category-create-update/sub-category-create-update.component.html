@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>SubCategory <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-5">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="subCategoryForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header class="mb-2">
+                                <mat-card-subtitle>SubCategory Picture</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="profile" (click)="avatarClassicInput.click()">
+                                            <p *ngIf="!avaterPreview">Image</p>
+                                            <input type="hidden" formControlName="picture" />
+                                            <img class="img-thumbnail" [src]="avaterPreview" *ngIf="!!avaterPreview" alt="">
+                                            <input type="file" hidden #avatarClassicInput
+                                                (change)="uploadFileAttach($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+
+                        <mat-card class="t-card">
+                            <mat-card-header class="mb-3">
+                                <mat-card-subtitle>SubCategory Information</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Category </mat-label>
+                                            <mat-select formControlName="categoryId">
+                                                <mat-form-field class="t-full-width">
+                                                    <input matInput placeholder="Search Category" autocomplete="off"
+                                                        (keyup)="onCategoryFilter($event)"
+                                                        (keydown)="$event.stopPropagation()" />
+                                                </mat-form-field>
+                                                <mat-option *ngFor="let cat of  filterCategories | slice: 0:100"
+                                                    [value]="cat.id">
+                                                    <small>
+                                                        {{ cat.categoryName }}
+                                                    </small>
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                SubCategory Name
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="subCategoryName"
+                                                placeholder="Enter Sub Category Name" />
+                                            <mat-error
+                                                *ngIf="subCategoryForm.controls['subCategoryName'].hasError('required')">
+                                                SubCategory Name is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="subCategoryForm.controls['subCategoryName'].hasError('maxlength')">
+                                                SubCategory Name max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> SubCategory Code </mat-label>
+                                            <input matInput formControlName="subCategoryCode"
+                                                placeholder="Enter Sub Category Code" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Description </mat-label>
+                                            <textarea matInput formControlName="description" rows="3"
+                                                placeholder="Write about subCategory........."></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <mat-checkbox  formControlName="cancel"  color="primary">Cancel</mat-checkbox>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="reset()">Reset</button>
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="clearCategory()">clear</button>
+                        <button mat-stroked-button color="primary" (click)="save()" class="t-mat-raised-button">
+                            <mat-icon>{{ isEdit ? "update" : "save" }}</mat-icon>
+                            {{ isEdit ? "Update" : "Save" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

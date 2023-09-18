@@ -1,0 +1,140 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Category <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-5">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="companyForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header class="mb-3">
+                                <mat-card-subtitle>Company Information</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Company Name
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="companyName"
+                                                placeholder="Enter Company Name" />
+                                            <mat-error
+                                                *ngIf="companyForm.controls['companyName'].hasError('required')">
+                                                Company Name is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="companyForm.controls['companyName'].hasError('maxlength')">
+                                                Company Name max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Address </mat-label>
+                                            <input matInput formControlName="address"
+                                                placeholder="Enter Address" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Zip Code </mat-label>
+                                            <input matInput formControlName="zipCode"
+                                                placeholder="Enter Zip Code" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                          <mat-label>
+                                            Mobile Number
+                                            <span class="required">*</span>
+                                          </mat-label>
+                                          <input matInput formControlName="contactNumber" placeholder="Enter Contact Number " />
+                                          <mat-error *ngIf="companyForm.controls['contactNumber'].hasError('required')">
+                                            Mobile Number is <strong>required</strong>
+                                          </mat-error>
+                                          <mat-error *ngIf="
+                                              companyForm.controls['contactNumber'].hasError('phoneValid') &&
+                                              !companyForm.controls['contactNumber'].hasError('required')
+                                            ">
+                                            Enter valid Mobile Number
+                                          </mat-error>
+                                        </mat-form-field>
+                                      </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                          <mat-form-field class="t-full-width">
+                                            <mat-label> Country </mat-label>
+                                            <mat-select formControlName="countryId">
+                                              <mat-form-field class="t-full-width">
+                                                <input matInput placeholder="Search Countries" autocomplete="off"
+                                                  (keyup)="onCountryFilter($event)" (keydown)="$event.stopPropagation()" />
+                                              </mat-form-field>
+                                              <mat-option *ngFor="let country of filteredCountries | slice: 0:15" [value]="country.id">
+                                                <small>
+                                                  {{ country.name }}
+                                                </small>
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <mat-form-field class="t-full-width">
+                                            <mat-label> State </mat-label>
+                                            <mat-select formControlName="stateId">
+                                              <mat-form-field class="t-full-width">
+                                                <input matInput placeholder="Search State" autocomplete="off" 
+                                                (keyup)="onStateFilter($event)" (keydown)="$event.stopPropagation()" />
+                                              </mat-form-field>
+                                              <mat-option *ngFor="let state of filteredStates | slice: 0:15" [value]="state.id">
+                                                <small>
+                                                  {{ state.name }}
+                                                </small>
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <mat-form-field class="t-full-width">
+                                            <mat-label> City </mat-label>
+                                            <mat-select formControlName="cityId">
+                                              <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Search City" autocomplete="off"
+                                                  (keyup)="onCityFilter($event)" (keydown)="$event.stopPropagation()" />
+                                              </mat-form-field>
+                                              <mat-option *ngFor="let city of filteredCities | slice: 0:15" [value]="city.id">
+                                                <small>
+                                                  {{ city.name }}
+                                                </small>
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                      
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="reset()">Reset</button>
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="clearcompany()">clear</button>
+                        <button mat-stroked-button color="primary" (click)="save()" class="t-mat-raised-button">
+                            <mat-icon>{{ isEdit ? "update" : "save" }}</mat-icon>
+                            {{ isEdit ? "Update" : "Save" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

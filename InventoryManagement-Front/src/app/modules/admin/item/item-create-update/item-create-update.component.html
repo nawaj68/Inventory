@@ -1,0 +1,200 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="itemForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header>
+                                <mat-card-subtitle>Item Information</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Item Code
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="itemCode" placeholder="Enter Item Code" />
+                                            <mat-error *ngIf="itemForm.controls['itemCode'].hasError('required')">
+                                                Item Name is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Item Name
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="itemName" placeholder="Enter Item Name" />
+                                            <mat-error *ngIf="itemForm.controls['itemName'].hasError('required')">
+                                                Item Name is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error *ngIf="itemForm.controls['itemName'].hasError('maxlength')">
+                                                Item Name max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Sub Category </mat-label>
+                                            <mat-select formControlName="subCategoryId">
+                                                <mat-form-field class="t-full-width">
+                                                    <input matInput placeholder="Search SubCategory" autocomplete="off"
+                                                        (keyup)="onSubCategoryFilter($event)"
+                                                        (keydown)="$event.stopPropagation()" />
+                                                </mat-form-field>
+                                                <mat-option *ngFor="let subCategory of filteredSubCategories | slice: 0:100"
+                                                    [value]="subCategory.id">
+                                                    <small>
+                                                        {{ subCategory.subCategoryName }}
+                                                    </small>
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Company </mat-label>
+                                            <mat-select formControlName="companyId">
+                                                <mat-form-field class="t-full-width">
+                                                    <input matInput placeholder="Search Countries" autocomplete="off"
+                                                        (keyup)="onCompanyFilter($event)"
+                                                        (keydown)="$event.stopPropagation()" />
+                                                </mat-form-field>
+                                                <mat-option *ngFor="let company of filteredCompanies | slice: 0:10"
+                                                    [value]="company.id">
+                                                    <small>
+                                                        {{ company.companyName }}
+                                                    </small>
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Unit </mat-label>
+                                            <mat-select formControlName="unitId">
+                                                <mat-form-field class="t-full-width">
+                                                    <input matInput placeholder="Search Unit" autocomplete="off"
+                                                        (keyup)="onUnitFilter($event)"
+                                                        (keydown)="$event.stopPropagation()" />
+                                                </mat-form-field>
+                                                <mat-option *ngFor="let unit of filteredUnits | slice: 0:100"
+                                                    [value]="unit.id">
+                                                    <small>
+                                                        {{ unit.unitName }}
+                                                    </small>
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Item Description
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <textarea matInput formControlName="description" placeholder="Item Description......."></textarea>
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Measure
+                                            </mat-label>
+                                            <input matInput formControlName="measure" placeholder="Item Measure" />  
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Measure Value
+                                            </mat-label>
+                                            <input matInput type="number" formControlName="measurevalue" placeholder="Item Measure Value" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Unit Price
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput type="number" formControlName="unitPrice" placeholder="Item Unit Price" />
+                                            <mat-error *ngIf="itemForm.controls['unitPrice'].hasError('required')">
+                                                Unit Price is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Sell Price
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput type="number" formControlName="sellPrice" placeholder="Item Sell Price" />
+                                            <mat-error *ngIf="itemForm.controls['sellPrice'].hasError('required')">
+                                                Sell Price is <strong>required</strong>
+                                            </mat-error>
+                                            
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Old Unit Price
+                                            </mat-label>
+                                            <input matInput type="number" formControlName="oldUnitPrice" placeholder="Item Old Unit Price" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Old Sell Price
+                                            </mat-label>
+                                            <input matInput type="number" formControlName="oldSellPrice" placeholder="Item Old Sell Price" />
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                ReOrderv Level
+                                            </mat-label>
+                                            <input matInput type="text" formControlName="reOrderLevel" placeholder="Enter Re-Orderv Level" />
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Stock
+                                            </mat-label>
+                                            <input matInput type="number" formControlName="stock" placeholder="Enter stock" />
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="reset()">Reset</button>
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="clearItem()">clear</button>
+                        <button mat-stroked-button color="primary" (click)="save()" class="t-mat-raised-button">
+                            <mat-icon>{{ isEdit ? "update" : "add" }}</mat-icon>
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

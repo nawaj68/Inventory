@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-floating-label{
+    font-weight: 300 !important;
+}
+
+.t-full-width {
+    width: 100%;
+  }
+  
+  .profile{
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  
+  }
+  
+  .profile p{
+    line-height: 90px;
+    color: purple;
+    text-align: center;
+    font-size: 48px;
+  }
+  .mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: #fff !important;
+  }
+
+  .mdc-form-field>label{
+    font-weight: 400 !important;
+    padding-top: 10px !important;
+  }
+  mat-form-field{
+    
+    mat-label{
+      font-size: 15px !important;
+    }
+    input, textarea{
+      font-size: 14px !important;
+    }
+  }
+  
+ 
+  .chackBox-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+  
+  .chackBox-margin {
+    margin: 0 10px;
+  }
+
+  .avatar{
+    img{
+      width: 60px !important;
+    }
+  }
+
+  .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active, 
+  .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active,
+  .nav-sidebar .nav-item > .nav-link{
+    display: flex;
+    padding-top: 10px!important;
+    padding-bottom: 5px!important;
+  }
+
+  .material-icons{
+    font-size: 18px;
+  }
+
+  .fi{
+    font-size: 30px;
+  }

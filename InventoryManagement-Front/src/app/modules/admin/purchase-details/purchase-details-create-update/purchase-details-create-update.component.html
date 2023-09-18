@@ -1,0 +1,125 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="purchaseDetailsForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header>
+                                <mat-card-subtitle>Purchase Details</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                  
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Item </mat-label>
+                                            <mat-select formControlName="itemId">
+                                              <mat-form-field class="t-full-width">
+                                                <input matInput placeholder="Search Item" autocomplete="off"
+                                                  (keyup)="onItemFilter($event)" (keydown)="$event.stopPropagation()" />
+                                              </mat-form-field>
+                                              <mat-option *ngFor="let item of filteredItems | slice: 0:10" [value]="item.id">
+                                                <small>
+                                                  {{ item.itemName }}
+                                                </small>
+                                              </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="purchaseDetailsForm.controls['itemId'].hasError('required')">
+                                              Item is <strong>required</strong>
+                                            </mat-error>
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                          <mat-label> Purchase </mat-label>
+                                          <mat-select formControlName="purchasesMasterId">
+                                            <mat-form-field class="t-full-width">
+                                              <input matInput placeholder="Search Purchse" autocomplete="off"
+                                                (keyup)="onPurchasesMasterFilter($event)" (keydown)="$event.stopPropagation()" />
+                                            </mat-form-field>
+                                            <mat-option *ngFor="let purchse of filteredPurchasesMaster | slice: 0:10" [value]="purchse.id">
+                                              <small>
+                                                {{ purchse.purchasesCode }}
+                                              </small>
+                                            </mat-option>
+                                          </mat-select>
+                                          <mat-error *ngIf="purchaseDetailsForm.controls['purchasesMasterId'].hasError('required')">
+                                            Purchase is <strong>required</strong>
+                                          </mat-error>
+                                        </mat-form-field>
+                                      </div>
+                                     
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Quantity
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="quantity" placeholder="quantity" />
+                                            <mat-error *ngIf="purchaseDetailsForm.controls['quantity'].hasError('required')">
+                                                 <strong>required</strong>
+                                            </mat-error>
+                    
+                                        </mat-form-field>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Unite price
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="unitePrice" placeholder="Unite price" />
+                                            <mat-error *ngIf="purchaseDetailsForm.controls['unitePrice'].hasError('required')">
+                                                 <strong>required</strong>
+                                            </mat-error>
+                    
+                                        </mat-form-field>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Sell Price
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="sellPrice" placeholder="  Sell price" />
+                                            <mat-error *ngIf="purchaseDetailsForm.controls['sellPrice'].hasError('required')">
+                                                 <strong>required</strong>
+                                            </mat-error>
+                    
+                                        </mat-form-field>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Batch Number
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="batchNumber" placeholder="  Batch number" />
+                                            <mat-error *ngIf="purchaseDetailsForm.controls['batchNumber'].hasError('required')">
+                                                 <strong>required</strong>
+                                            </mat-error>
+                    
+                                        </mat-form-field>
+                                    </div> 
+                                    
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="reset()">Reset</button>
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="clearState()">clear</button>
+                        <button mat-stroked-button color="primary" (click)="save()" class="t-mat-raised-button">
+                            <mat-icon>{{ isEdit ? "update" : "add" }}</mat-icon>
+                            {{ isEdit ? "Update" : "Add" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

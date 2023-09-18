@@ -1,0 +1,201 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Category <span>Form</span></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-5">
+        <div class="t-basic-form t-form">
+            <form [formGroup]="purchasesmasterForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-card class="t-card">
+                            <mat-card-header class="mb-3">
+                                <mat-card-subtitle>Purchases Master Information</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label>
+                                                Code
+                                                <span class="required">*</span>
+                                            </mat-label>
+                                            <input matInput formControlName="purchasesCode"
+                                                placeholder="Enter Product Code" />
+                                            <mat-error
+                                                *ngIf="purchasesmasterForm.controls['purchasesCode'].hasError('required')">
+                                                Product Code <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="purchasesmasterForm.controls['purchasesCode'].hasError('maxlength')">
+                                                Product Code max length is <strong>20</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width" appearance="outline">
+                                          <mat-label>
+                                            Purchases Date
+                                            <span class="required">*</span>
+                                          </mat-label>
+                                          <input matInput [matDatepicker]="birthDatePicker" [max]="today" formControlName="purchasesDate"
+                                            placeholder="Enter Purchases Date" name="purchasesDate" (dateChange)="dateChange('change', $event)" />
+                                          <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                                          <mat-datepicker #birthDatePicker></mat-datepicker>
+                                          <mat-error *ngIf="purchasesmasterForm.controls['purchasesDate'].hasError('required')">
+                                            Purchases Date is <strong>required</strong>
+                                          </mat-error>
+                                        </mat-form-field>
+                                      </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> PurchasesType </mat-label>
+                                            <input matInput formControlName="purchasesType"
+                                                placeholder="Enter PurchasesType" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> Attn </mat-label>
+                                            <input matInput formControlName="attn"
+                                                placeholder="Enter Attn" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <mat-form-field class="t-full-width">
+                                          <mat-label> Warrenty </mat-label>
+                                          <input matInput formControlName="warrenty"
+                                              placeholder="Enter Warrenty Code" />
+                                      </mat-form-field>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <mat-form-field class="t-full-width">
+                                        <mat-label> Lc Number </mat-label>
+                                        <input matInput formControlName="lcNumber"
+                                            placeholder="Enter lcNumber" />
+                                    </mat-form-field>
+                                </div>
+                              <div class="col-md-6">
+                                <mat-form-field class="t-full-width" appearance="outline">
+                                  <mat-label>
+                                    Lc Date
+                                    <span class="required">*</span>
+                                  </mat-label>
+                                  <input matInput [matDatepicker]="lcDate" [max]="today" formControlName="lcDate"
+                                    placeholder="Enter Purchases Date" name="lcDate" (dateChange)="dateChange('change', $event)" />
+                                  <mat-datepicker-toggle matSuffix [for]="lcDate"></mat-datepicker-toggle>
+                                  <mat-datepicker #lcDate></mat-datepicker>
+                                  <mat-error *ngIf="purchasesmasterForm.controls['lcDate'].hasError('required')">
+                                    Lc Date is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                          <mat-form-field>
+                                            <mat-label> Company </mat-label>
+                                            <mat-select formControlName="companyId">
+                                              <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Search Company" autocomplete="off"
+                                                  (keyup)="onCompanyFilter($event)" (keydown)="$event.stopPropagation()" />
+                                              </mat-form-field>
+                                              <mat-option *ngFor="let company of filteredCompany | slice: 0:10" [value]="company.id">
+                                                <small>
+                                                  {{ company.companyName }}
+                                                </small>
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <mat-form-field>
+                                            <mat-label> Supplier </mat-label>
+                                            <mat-select formControlName="supplierId">
+                                              <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Search Supplier" autocomplete="off" (keyup)="onSupplierFilter($event)"
+                                                  (keydown)="$event.stopPropagation()" />
+                                              </mat-form-field>
+                                              <mat-option *ngFor="let supplier of filteredSupplier | slice: 0:10" [value]="supplier.id">
+                                                <small>
+                                                  {{ supplier.supplierName }}
+                                                </small>
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <mat-form-field class="t-full-width">
+                                            <mat-label> PoNumber </mat-label>
+                                            <input matInput formControlName="poNumber"
+                                                placeholder="Enter poNumber" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <mat-form-field class="t-full-width">
+                                          <mat-label> Remarks </mat-label>
+                                          <input matInput formControlName="remarks"
+                                              placeholder="Enter remarks" />
+                                      </mat-form-field>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <mat-form-field class="t-full-width">
+                                        <mat-label> Discount </mat-label>
+                                        <input matInput formControlName="discountAmount"
+                                            placeholder="Enter discountAmount" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                  <mat-form-field class="t-full-width">
+                                      <mat-label> Discount Percent </mat-label>
+                                      <input matInput formControlName="discountPercent"
+                                          placeholder="Enter discountPercent" />
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-6">
+                                <mat-form-field class="t-full-width">
+                                    <mat-label> Vat Amount </mat-label>
+                                    <input matInput formControlName="vatAmount"
+                                        placeholder="Enter vatAmount" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                              <mat-form-field class="t-full-width">
+                                  <mat-label> Vat Percent </mat-label>
+                                  <input matInput formControlName="vatPercent"
+                                      placeholder="Enter vatPercent" />
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-6">
+                            <mat-form-field class="t-full-width">
+                                <mat-label> Payment Type </mat-label>
+                                <input matInput formControlName="paymentType"
+                                    placeholder="Enter paymentType" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-checkbox  formControlName="cancle"  color="primary">Cancel</mat-checkbox>
+                      </div>
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="reset()">Reset</button>
+                        <button class="t-mat-raised-button mr-2" mat-stroked-button (click)="clearpurchasesmaster()">clear</button>
+                        <button mat-stroked-button color="primary" (click)="save()" class="t-mat-raised-button">
+                            <mat-icon>{{ isEdit ? "update" : "save" }}</mat-icon>
+                            {{ isEdit ? "Update" : "Save" }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
